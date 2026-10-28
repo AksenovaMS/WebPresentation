@@ -1,0 +1,93 @@
+/* Стили презентации. Подключать ПОСЛЕ темы Shower (Ribbon). */
+.shower {
+	--slide-ratio: calc(16 / 9);
+	--serif: Georgia, 'Times New Roman', serif;
+	--sans: Calibri, Carlito, 'Segoe UI', Arial, sans-serif;
+}
+
+.slide.deck {
+	padding: 0;
+	background: #faf8f4;
+	color: #2b2b2b;
+	font-family: var(--sans);
+	line-height: 1.2;
+}
+/* прячем ленточку с номером из темы Ribbon — номера уже есть на слайдах */
+.slide.deck::before,
+.slide.deck::after { display: none; }
+
+/* холст 16:9, все размеры в долях ширины слайда (cqw) */
+.deck .c {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	transform: translateY(-50%);
+	container-type: size;
+	overflow: hidden;
+}
+.deck .e { position: absolute; box-sizing: border-box; margin: 0; }
+.deck img.e { display: block; object-fit: fill; max-width: none; }
+.deck .t { display: flex; flex-direction: column; }
+.deck .p { margin: 0; padding: 0; text-align: left; }
+.deck .p.b { position: relative; }
+.deck .p.b::before {
+	content: var(--bu, '•');
+	font-family: var(--bf, inherit);
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.deck .num { text-align: right; }
+.deck .num .p { text-align: right; }
+
+/* заголовок слайда (h2) */
+.slide.deck h2.e {
+	font-family: var(--serif);
+	font-weight: 700;
+	margin: 0;
+}
+.slide.deck h2.e .p { text-align: left; }
+
+/* декор макета: красная черта под заголовком и синяя полоса на титульном/финальном */
+.slide.deck.content .c::before {
+	content: '';
+	position: absolute;
+	left: 5%;
+	top: 17.78%;
+	width: 8%;
+	height: 0.89%;
+	background: #c8553d;
+}
+.slide.deck.title .c::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 2.5%;
+	height: 100%;
+	background: #1f4e5f;
+}
+.slide.deck .e.t { font-synthesis: weight; }
+
+/* Заметки докладчика (если есть) */
+.deck .notes { display: none; }
+#notes-panel {
+	display: none;
+	position: fixed;
+	left: 0; right: 0; bottom: 0;
+	max-height: 35vh;
+	overflow: auto;
+	padding: 16px 24px;
+	background: rgb(31 78 95 / 95%);
+	color: #fff;
+	font: 18px/1.4 Calibri, Carlito, Arial, sans-serif;
+	z-index: 100;
+}
+body.show-notes #notes-panel { display: block; }
+@media print { #notes-panel { display: none !important; } }
+
+/* GIF на последнем слайде (Tenor) */
+.deck .gif { line-height: 0; }
+.deck .gif iframe { pointer-events: none; } /* чтобы клики и стрелки управляли Shower, а не GIF */
